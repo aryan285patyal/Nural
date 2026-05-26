@@ -16,19 +16,30 @@ class SigmoidNuron(object):
         
         #self.outputNuronId = outputNuronId
 
-        self.weights = weightsList # the weights for each input
-        self.input = [] # has the input when running the nuron
+        self.weights = weightsList # the weights for each input. so for n1 of the layer w1 is at index weightsList[1]
         
+        self.input = [] # has the input when running the nuron
+        self.printNuron()
 
     #def makeWeightInputAssignment(self):
         
 
+    def sigmoidFunction(x):
+        return 1.0/(1.0+np.exp(-x))
 
-    # def printNuron(self):
-    #     print(f"nuron no. {self.nuronId} has biase {self.biase} and weights:\n")
-    #     for weight in self.weights:
-    #         print("from nuronID:{} weight is: {}\n")
 
-    # def nuronInstance(self, fromNuron, input):
-    #     #fromNuron : required to chose which weight to use
-    #     #input : the actial value sent from the nuron before
+    def printNuron(self):
+        print(f"\n###########>nuronId {self.nuronId} has biase {self.biase} and weights:")
+        for i in range(len(self.weights)):
+            print(f"###########>from nuronNo:{i} in previous layer, weight is: {self.weights[i]}")
+        print("")
+
+    def runNuron(self,input):
+        #fromNuron : required to chose which weight to use
+        #input : the actial value sent from the nuron before
+        if np.shape(input) != np.shape(self.weights):
+            print("NURON ERR: The shape of input and nurons's weights dosent match")
+            return(0)
+        
+        print(input.shape[0])
+        return (self.sigmoidFunction((self.weights*input) + self.biase))

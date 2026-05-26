@@ -29,7 +29,10 @@ class Layer(object):
             print(f"#######>nuronID: {nuron.nuronId}, biase: {nuron.biase}, weights: {nuron.weights}")
         print("\n\n")
 
-    
 
     def runNuronLayer(self, input):
+        if np.shape(input) != np.shape(self.weightList):
+            print("NURON LAYER ERR: The input and weightsList diamentions dont match.")
+            return(0)
         outputVector = (self.weightList * input) + self.biaseList
+        return(self.sigmoid(outputVector))
